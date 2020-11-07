@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Pets from './PetsComponent';
 import Parks from './ParksComponent';
-import CampsiteInfo from './CampsiteInfoComponent';
+import ParkInfo from './ParkInfoComponent';
 import History from './HistoryComponent';
 import Favorites from './FavoritesComponent';
 import Login from './LoginComponent';
@@ -12,13 +12,13 @@ import { createAppContainer } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 import { connect } from 'react-redux';
-import { fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreators';
+import { fetchParks, fetchComments, fetchPromotions, fetchPets } from '../redux/ActionCreators';
 
 const mapDispatchToProps = {
-    fetchCampsites,
+    fetchParks,
     fetchComments,
     fetchPromotions,
-    fetchPartners
+    fetchPets
 };
 
 const LoginNavigator = createStackNavigator(
@@ -57,7 +57,7 @@ const PetsNavigator = createStackNavigator(
                 />
             })
          },
-        CampsiteInfo: { screen: CampsiteInfo }
+        ParkInfo: { screen: ParkInfo }
     },
     {
         initialRouteName: 'Pets',
@@ -80,15 +80,15 @@ const ParksNavigator = createStackNavigator(
     {
         defaultNavigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: 'white'
             },
-            headerTintColor: '#fff',
             headerTitleStyle: {
-                color: '#fff'
+                color: 'black'
             },
             headerLeft: <Icon
                     name='tree'
                     type='font-awesome'
+                    color='green'
                     iconStyle={styles.stackIcon}
                     onPress={() => navigation.toggleDrawer()}
                 />
@@ -126,9 +126,9 @@ const HistoryNavigator = createStackNavigator(
     {
         defaultNavigationOptions: ({navigation}) => ({
             headerStyle: {
-                backgroundColor: '#5637DD'
+                backgroundColor: 'white'
             },
-            headerTintColor: '#fff',
+            headerTintColor: 'black',
             headerTitleStyle: {
                 color: '#fff'
             },
@@ -143,20 +143,17 @@ const HistoryNavigator = createStackNavigator(
 );
 
 const CustomeDrawerContentComponent = props => (
-    <ScrollView>
+    <ScrollView style={styles.container}>
         <SafeAreaView
-         style={styles.container}
          forceInset={{top: 'always', horizontal: 'never'}}
-        >
+            >
             <View style={styles.drawerHeader}>
                 <View style={{flew: 1}}>
                     <Image
                         source={require('./images/logo.png')}
                         style={styles.drawerImage}
                     />
-                </View>
-                <View style={{flew: 2}}>
-                    <Text style = {styles.drawerHeaderText}>NuCamp</Text>
+                    <Text style = {styles.drawerHeaderText}>PupPlay</Text>
                 </View>
             </View>
             <DrawerItems {...props}/>
@@ -169,7 +166,7 @@ const MainNavigator = createDrawerNavigator(
         Login: {
             screen: LoginNavigator,
             navigationOptions: {
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: () => (
                     <Icon
                         name='sign-in'
                         type='font-awesome'
@@ -183,7 +180,7 @@ const MainNavigator = createDrawerNavigator(
             screen: PetsNavigator,
             navigationOptions: {
                 drawerLabel: 'Pets',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: () => (
                     <Icon
                         name='paw'
                         type='font-awesome'
@@ -197,7 +194,7 @@ const MainNavigator = createDrawerNavigator(
             screen: ParksNavigator,
             navigationOptions: {
                 drawerLabel: 'Parks',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: () => (
                     <Icon
                         name='tree'
                         type='font-awesome'
@@ -211,7 +208,7 @@ const MainNavigator = createDrawerNavigator(
             screen: FavoritesNavigator,
             navigationOptions: {
                 drawerLabel: 'Favorites',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: () => (
                     <Icon
                         name='heart'
                         type='font-awesome'
@@ -225,7 +222,7 @@ const MainNavigator = createDrawerNavigator(
             screen: HistoryNavigator,
             navigationOptions: {
                 drawerLabel: 'History',
-                drawerIcon: ({tintColor}) => (
+                drawerIcon: () => (
                     <Icon
                         name='history'
                         type='font-awesome'
@@ -237,8 +234,8 @@ const MainNavigator = createDrawerNavigator(
         }
     },
     {
-        initialRouteName: 'Pets',
-        drawerBackgroundColor: '#CEC8FF',
+        initialRouteName: 'Parks',
+        drawerBackgroundColor: 'white',
         contentComponent: CustomeDrawerContentComponent
     }
 );
@@ -248,10 +245,10 @@ const AppNavigator = createAppContainer(MainNavigator)
 class Main extends Component {
 
     componentDidMount() {
-        this.props.fetchCampsites();
+        this.props.fetchParks();
         this.props.fetchComments();
         this.props.fetchPromotions();
-        this.props.fetchPartners();
+        this.props.fetchPets();
 }
 
     render() {
@@ -271,7 +268,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     drawerHeader: {
-        backgroundColor: '#5637DD',
         height: 140,
         alignItems: 'center',
         justifyContent: 'center',
@@ -279,7 +275,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     drawerHeaderText: {
-        color: '#fff',
+        color: 'black',
         fontSize: 24,
         fontWeight: 'bold'
     },
@@ -289,8 +285,7 @@ const styles = StyleSheet.create({
         width: 60
     },
     stackIcon: {
-        marginLeft: 10,
-        color: '#fff',
+        marginLeft: 15,
         fontSize: 24
     }
 });

@@ -31,11 +31,11 @@ export const addComments = comments => ({
     payload: comments
 });
 
-export const fetchCampsites = () => dispatch => {
+export const fetchParks = () => dispatch => {
 
-    dispatch(campsitesLoading());
+    dispatch(parksLoading());
 
-    return fetch(baseUrl + 'campsites')
+    return fetch(baseUrl + 'parks')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -50,22 +50,22 @@ export const fetchCampsites = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(campsites => dispatch(addCampsites(campsites)))
-        .catch(error => dispatch(campsitesFailed(error.message)));
+        .then(parks => dispatch(addParks(parks)))
+        .catch(error => dispatch(parksFailed(error.message)));
 };
 
-export const campsitesLoading = () => ({
-    type: ActionTypes.CAMPSITES_LOADING
+export const parksLoading = () => ({
+    type: ActionTypes.PARKS_LOADING
 });
 
-export const campsitesFailed = errMess => ({
-    type: ActionTypes.CAMPSITES_FAILED,
+export const parksFailed = errMess => ({
+    type: ActionTypes.PARKS_FAILED,
     payload: errMess
 });
 
-export const addCampsites = campsites => ({
-    type: ActionTypes.ADD_CAMPSITES,
-    payload: campsites
+export const addParks = parks => ({
+    type: ActionTypes.ADD_PARKS,
+    payload: parks
 });
 
 export const fetchPromotions = () => dispatch => {
@@ -105,11 +105,11 @@ export const addPromotions = promotions => ({
     payload: promotions
 });
 
-export const fetchPartners = () => dispatch => {
+export const fetchPets = () => dispatch => {
     
-    dispatch(partnersLoading());
+    dispatch(petsLoading());
 
-    return fetch(baseUrl + 'partners')
+    return fetch(baseUrl + 'pets')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -124,22 +124,22 @@ export const fetchPartners = () => dispatch => {
                 throw errMess;
             })
         .then(response => response.json())
-        .then(partners => dispatch(addPartners(partners)))
-        .catch(error => dispatch(partnersFailed(error.message)));
+        .then(pets => dispatch(addPets(pets)))
+        .catch(error => dispatch(petsFailed(error.message)));
 };
 
-export const partnersLoading = () => ({
-    type: ActionTypes.PARTNERS_LOADING
+export const petsLoading = () => ({
+    type: ActionTypes.PETS_LOADING
 });
 
-export const partnersFailed = errMess => ({
-    type: ActionTypes.PARTNERS_FAILED,
+export const petsFailed = errMess => ({
+    type: ActionTypes.PETS_FAILED,
     payload: errMess
 });
 
-export const addPartners = partners => ({
-    type: ActionTypes.ADD_PARTNERS,
-    payload: partners
+export const addPets = pets => ({
+    type: ActionTypes.ADD_PETS,
+    payload: pets
 });
 
 export const postFavorite = campsiteId => dispatch => {
